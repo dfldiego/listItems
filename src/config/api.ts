@@ -1,19 +1,20 @@
 import axios from "axios";
 export const THUMBNAIL_PATH = "http://http2.mlstatic.com";
 
-export const getItemsByQueryAPI = (q: string) => {
-  const itemsUrl = `${process.env.API_PATH}/search?q=${q}`;
-  return axios.get(itemsUrl);
+export const getItemsByQueryAPI = async (q: string) => {
+  const itemsUrl = `https://api.mercadolibre.com/sites/MLA/search?q=${q}`;
+  const response = await axios.get(itemsUrl);
+  return response.data;
 };
 
 export const getItemAPI = async (id: string) => {
-  const itemUrl = `${process.env.API_PATH_ITEMS_ID}/${id}`;
+  const itemUrl = `https://api.mercadolibre.com/items/${id}`;
   const response = await axios.get(itemUrl);
   return response.data;
 };
 
 export const getItemDescriptionAPI = async (id: string) => {
-  const descriptionUrl = `${process.env.API_PATH_ITEMS_ID}/${id}/description`;
+  const descriptionUrl = `https://api.mercadolibre.com/items/${id}/description`;
   const response = await axios.get(descriptionUrl);
   return response.data;
 };

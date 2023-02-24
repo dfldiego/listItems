@@ -31,7 +31,7 @@ export const getAmountAndDecimals = (price: number): Price => {
  * @returns {Item[]} A list of items
  */
 export const getItems = (list: ApiItem[]): Item[] => {
-  const listItems = list.map((element: ApiItem) => {
+  const listItems: Item[] = list.map((element: ApiItem) => {
     const {
       id,
       title,

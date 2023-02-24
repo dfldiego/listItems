@@ -8,6 +8,7 @@ import {
   getItem,
   getPathFromRootCategories,
 } from "../../utils/items";
+import { categoryNotFoundError } from "./items.error";
 import { DataStructure, Item } from "./items.interface";
 
 /**
@@ -19,9 +20,15 @@ export const mercadolibreApiClientSearch = async (
   q: string
 ): Promise<DataStructure> => {
   const responseApiClient = await getItemsByQueryAPI(q);
-  const items: Item[] = getItems(responseApiClient.data.results);
+  const items: Item[] = getItems(responseApiClient.results);
+
+  if (!responseApiClient.filters[0]) {
+    const errorData = categoryNotFoundError();
+    throw new Error(errorData.error.internalMessage);
+  }
+
   const categories: string[] = getPathFromRootCategories(
-    responseApiClient.data.filters[0]
+    responseApiClient.filters[0]
   );
 
   return {

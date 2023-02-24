@@ -23,7 +23,7 @@ export const getItemsByQuery = async (req: Request, res: Response) => {
     }
     res.status(200).send({ ok: true, response });
   } catch (error) {
-    handleHttp(res, "ERROR_GET_ITEMS_BY_QUERY => " + error);
+    handleHttp(res, error);
   }
 };
 
@@ -37,6 +37,6 @@ export const getItemById = async (req: Request, res: Response) => {
     const response = await getItemByIdService(<string>id);
     res.status(200).send({ ok: true, response });
   } catch (error) {
-    handleHttp(res, "ERROR_GET_ITEM_BY_ID => " + error);
+    handleHttp(res, error);
   }
 };
