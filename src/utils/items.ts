@@ -76,8 +76,12 @@ export const getItems = (list: ApiItem[]): Item[] => {
  * @param {array} list
  * @returns {string[]} A list of categories
  */
-export const getPathFromRootCategories = (list: Filters): string[] => {
-  const pathFromRoot = list.values[0].path_from_root.map(
+export const getPathFromRootCategories = (
+  list: Filters[] | []
+): string[] | [] => {
+  if (list.length === 0) return [];
+
+  const pathFromRoot = list[0].values[0].path_from_root.map(
     (category) => category.name
   );
   return pathFromRoot;
