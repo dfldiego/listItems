@@ -8,7 +8,7 @@ import {
   getItem,
   getPathFromRootCategories,
 } from "../../utils/items";
-import { itemsNotFoundError } from "./items.error";
+import { idNotFoundError, itemsNotFoundError } from "./items.error";
 import { DataStructure, Item } from "./items.interface";
 
 /**
@@ -43,10 +43,16 @@ export const mercadolibreApiClientSearch = async (
  * @returns {Promise<DataSItemtructure>} A promise with specific structure item
  */
 export const getItemByIdService = async (id: string): Promise<Item> => {
-  const [itemDataResponse, itemDataDescriptionResponse] = await Promise.all([
-    getItemAPI(id),
-    getItemDescriptionAPI(id),
-  ]);
+  const [itemDataResponse, itemDataDescriptionResponse]: any =
+    await Promise.allSettled([getItemAPI(id), getItemDescriptionAPI(id)]);
+  if (
+    itemDataResponse.status === "rejected" ||
+    itemDataDescriptionResponse.status === "rejected"
+  ) {
+    const errorData = idNotFoundError();
+    throw new Error(errorData.error.internalMessage);
+  }
+
   const { author, item }: Item = getItem(
     itemDataResponse,
     itemDataDescriptionResponse

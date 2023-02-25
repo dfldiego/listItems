@@ -25,6 +25,11 @@ export interface Item {
 }
 
 export interface ApiItem {
+  status: string;
+  value: ItemData;
+}
+
+export interface ItemData {
   id: string;
   title: string;
   condition: string;
@@ -201,6 +206,11 @@ export interface PathFromRoot {
 }
 
 export interface ItemDescription {
+  status: string;
+  value: DescriptionData;
+}
+
+export interface DescriptionData {
   text: string;
   plain_text: string;
   last_updated: string;

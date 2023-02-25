@@ -2,6 +2,7 @@ import {
   ApiItem,
   Filters,
   Item,
+  ItemData,
   ItemDescription,
 } from "../apiServices/items/items.interface";
 import { THUMBNAIL_PATH } from "../config/api";
@@ -27,11 +28,11 @@ export const getAmountAndDecimals = (price: number): Price => {
 
 /**
  * We built a new data structure based on the 'result' property from the MercadoLibre API.
- * @param {ApiItem[]} list - An array of items from Meli Api
+ * @param {ItemData[]} list - An array of items from Meli Api
  * @returns {Item[]} A list of items
  */
-export const getItems = (list: ApiItem[]): Item[] => {
-  const listItems: Item[] = list.map((element: ApiItem) => {
+export const getItems = (list: ItemData[]): Item[] => {
+  const listItems: Item[] = list.map((element: ItemData) => {
     const {
       id,
       title,
@@ -90,7 +91,7 @@ export const getPathFromRootCategories = (
 /**
  * We built a new data structure based on the 'result' property from the MercadoLibre API.
  * @param {ApiItem} itemData an item from Meli Api by id
- * @param {ApiItem[]} itemDataDescription - description of item from Meli Api
+ * @param {ItemDescription[]} itemDataDescription - description of item from Meli Api
  * @returns {Item} A structured item
  */
 export const getItem = (
@@ -106,8 +107,8 @@ export const getItem = (
     condition,
     shipping: { free_shipping },
     sold_quantity,
-  } = itemData;
-  const { plain_text } = itemDataDescription;
+  } = itemData.value;
+  const { plain_text } = itemDataDescription.value;
   const { amount, decimals } = getAmountAndDecimals(price);
   const picture = `${THUMBNAIL_PATH}/D_${thumbnail_id}-O.jpg`;
 
