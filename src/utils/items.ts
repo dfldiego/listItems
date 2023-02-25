@@ -41,6 +41,9 @@ export const getItems = (list: ApiItem[]): Item[] => {
       condition,
       shipping: { free_shipping },
       seller: { nickname },
+      seller_address: {
+        state: { name },
+      },
     } = element;
     const { amount, decimals } = getAmountAndDecimals(price);
     const picture = `${THUMBNAIL_PATH}/D_${thumbnail_id}-O.jpg`;
@@ -60,6 +63,7 @@ export const getItems = (list: ApiItem[]): Item[] => {
         picture,
         condition,
         free_shipping,
+        state: name,
       },
     };
   });
