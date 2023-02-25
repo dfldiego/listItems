@@ -63,7 +63,7 @@ export const getItems = (list: ApiItem[]): Item[] => {
         picture,
         condition,
         free_shipping,
-        state: name,
+        sellerState: name,
       },
     };
   });
