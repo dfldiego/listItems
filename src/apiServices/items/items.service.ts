@@ -34,7 +34,7 @@ export const mercadolibreApiClientSearch = async (
   }
 
   const categories: string[] | [] = getPathFromRootCategories(filters);
-  const totalPages = paging.total / paging.limit;
+  const totalPages = Math.ceil(paging.total / paging.limit);
 
   return {
     categories,
