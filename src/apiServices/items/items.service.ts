@@ -21,23 +21,25 @@ export const mercadolibreApiClientSearch = async (
   limit?: string,
   offset?: string
 ): Promise<DataStructure> => {
-  const responseApiClient = await getItemsByQueryAPI(query, limit, offset);
-  const items: Item[] = getItems(responseApiClient.results);
+  const { results, filters, paging } = await getItemsByQueryAPI(
+    query,
+    limit,
+    offset
+  );
+  const items: Item[] = getItems(results);
 
-  if (responseApiClient.results.length === 0) {
+  if (results.length === 0) {
     const errorData = itemsNotFoundError();
     throw new Error(errorData.error.internalMessage);
   }
 
-  const categories: string[] | [] = getPathFromRootCategories(
-    responseApiClient.filters
-  );
-  const totalItems = responseApiClient.paging.total;
+  const categories: string[] | [] = getPathFromRootCategories(filters);
+  const totalPages = paging.total / paging.limit;
 
   return {
     categories,
     items,
-    totalItems,
+    totalPages,
   };
 };
 
