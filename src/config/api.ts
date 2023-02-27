@@ -1,9 +1,19 @@
 import axios from "axios";
 export const THUMBNAIL_PATH = "http://http2.mlstatic.com";
 
-export const getItemsByQueryAPI = async (q: string) => {
-  const itemsUrl = `https://api.mercadolibre.com/sites/MLA/search?q=${q}`;
-  const response = await axios.get(itemsUrl);
+export const getItemsByQueryAPI = async (
+  q: string,
+  limit?: string,
+  offset?: string
+) => {
+  let url = `https://api.mercadolibre.com/sites/MLA/search?q=${q}`;
+  if (offset) {
+    url = `${url}&offset=${offset}`;
+  }
+  if (limit) {
+    url = `${url}&limit=${limit}`;
+  }
+  const response = await axios.get(url);
   return response.data;
 };
 

@@ -17,9 +17,11 @@ import { DataStructure, Item } from "./items.interface";
  * @returns {Promise<DataStructure>} A promise with specific structure
  */
 export const mercadolibreApiClientSearch = async (
-  query: string
+  query: string,
+  limit?: string,
+  offset?: string
 ): Promise<DataStructure> => {
-  const responseApiClient = await getItemsByQueryAPI(query);
+  const responseApiClient = await getItemsByQueryAPI(query, limit, offset);
   const items: Item[] = getItems(responseApiClient.results);
 
   if (responseApiClient.results.length === 0) {

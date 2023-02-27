@@ -7,13 +7,17 @@ import {
 } from "./items.service";
 
 export const getItemsByQuery = async (req: Request, res: Response) => {
-  const { q: query } = req.query;
+  const { q: query, limit, offset } = req.query;
   if (!query) {
     return res.status(400).send(queryEmptyError());
   }
 
   try {
-    const response = await mercadolibreApiClientSearch(<string>query);
+    const response = await mercadolibreApiClientSearch(
+      <string>query,
+      <string>limit,
+      <string>offset
+    );
     res.status(200).send({ ok: true, response });
   } catch (error) {
     handleHttp(res, error);
