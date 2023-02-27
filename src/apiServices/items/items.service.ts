@@ -32,10 +32,12 @@ export const mercadolibreApiClientSearch = async (
   const categories: string[] | [] = getPathFromRootCategories(
     responseApiClient.filters
   );
+  const totalItems = responseApiClient.paging.total;
 
   return {
     categories,
     items,
+    totalItems,
   };
 };
 

@@ -1,6 +1,7 @@
 export interface DataStructure {
   categories: string[];
   items: Item[];
+  totalItems: number;
 }
 
 export interface Item {
